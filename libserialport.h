@@ -281,7 +281,9 @@ extern "C" {
 /** @cond */
 #ifdef _MSC_VER
 /* Microsoft Visual C/C++ compiler in use */
-#ifdef LIBSERIALPORT_MSBUILD
+#ifdef LIBSERIALPORT_STATIC_BUILD
+#define SP_API
+#elif LIBSERIALPORT_MSBUILD
 /* Building the library - need to export DLL symbols */
 #define SP_API __declspec(dllexport)
 #else
@@ -295,6 +297,7 @@ extern "C" {
 #define SP_API
 #endif
 #endif
+
 /** @endcond */
 
 /** Return values. */
