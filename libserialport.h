@@ -276,27 +276,8 @@
 extern "C" {
 #endif
 
+#include "libserialport_export.h"
 #include <stddef.h>
-
-/** @cond */
-#ifdef _MSC_VER
-/* Microsoft Visual C/C++ compiler in use */
-#ifdef LIBSERIALPORT_STATIC_BUILD
-#define SP_API
-#elif LIBSERIALPORT_MSBUILD
-/* Building the library - need to export DLL symbols */
-#define SP_API __declspec(dllexport)
-#else
-/* Using the library - need to import DLL symbols */
-#define SP_API __declspec(dllimport)
-#endif
-#else
-/* Some other compiler in use */
-#ifndef LIBSERIALPORT_ATBUILD
-/* Not building the library itself - don't need any special prefixes. */
-#define SP_API
-#endif
-#endif
 
 /** @endcond */
 
