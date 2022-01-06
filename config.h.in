@@ -1,0 +1,66 @@
+/* clock_gettime is available. */
+#cmakedefine HAVE_CLOCK_GETTIME
+
+/* Define to 1 if you have the declaration of `BOTHER', and to 0 if you don't.
+   */
+#cmakedefine HAVE_DECL_BOTHER
+
+/* flock is available. */
+#cmakedefine HAVE_FLOCK
+
+/* realpath is available. */
+#cmakedefine HAVE_REALPATH
+
+/* Define to 1 if the system has the type `struct serial_struct'. */
+#cmakedefine HAVE_STRUCT_SERIAL_STRUCT
+
+/* Define to 1 if the system has the type `struct termios2'. */
+#cmakedefine HAVE_STRUCT_TERMIOS2
+
+/* Define to 1 if `c_ispeed' is a member of `struct termios2'. */
+#cmakedefine HAVE_STRUCT_TERMIOS2_C_ISPEED
+
+/* Define to 1 if `c_ospeed' is a member of `struct termios2'. */
+#cmakedefine HAVE_STRUCT_TERMIOS2_C_OSPEED
+
+/* Define to 1 if `c_ispeed' is a member of `struct termios'. */
+#cmakedefine HAVE_STRUCT_TERMIOS_C_ISPEED
+
+/* Define to 1 if `c_ospeed' is a member of `struct termios'. */
+#cmakedefine HAVE_STRUCT_TERMIOS_C_OSPEED
+
+/* sys/file.h is available. */
+#cmakedefine HAVE_SYS_FILE_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#cmakedefine HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#cmakedefine HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#cmakedefine HAVE_UNISTD_H
+
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
+#cmakedefine LT_OBJDIR
+
+/* Enumeration is unsupported. */
+#cmakedefine NO_ENUMERATION
+
+/* Port metadata is unavailable. */
+#cmakedefine NO_PORT_METADATA
+
+/* Macro preceding private functions */
+#define SP_PRIV @SP_PRIV@
+
+/* Enable large inode numbers on Mac OS X 10.5.  */
+#ifndef _DARWIN_USE_64_BIT_INODE
+# define _DARWIN_USE_64_BIT_INODE 1
+#endif
+
+#if defined(HAVE_STRUCT_TERMIOS_C_ISPEED) && defined(HAVE_STRUCT_TERMIOS_C_OSPEED)
+# define HAVE_TERMIOS_SPEED 1
+#endif
+#if defined(HAVE_STRUCT_TERMIOS2_C_ISPEED) && defined(HAVE_STRUCT_TERMIOS2_C_OSPEED)
+# define HAVE_TERMIOS2_SPEED 1
+#endif

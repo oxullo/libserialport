@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.11)
 
-project(libserialport VERSION 0.1.2)
+project(libserialport VERSION 0.1.1)
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules" ${CMAKE_MODULE_PATH})
 
 option(LIBSERIALPORT_STATIC_BUILD "Build libserialport as static library" ON)
 
@@ -37,15 +39,26 @@ generate_export_header(libserialport
              STATIC_DEFINE LIBSERIALPORT_STATIC_BUILD
 )
 
-include(CheckFunctionExists)
-include(CheckIncludeFiles)
+if(CMAKE_SYSTEM_NAME MATCHES "^Linux$")
+    include(CheckFunctionExists)
+    include(CheckIncludeFiles)
+    include(CheckType)
+    include(CheckStructMember)
 
-check_function_exists(clock_gettime HAVE_CLOCK_GETTIME)
-check_include_files(dlfcn.h HAVE_DLFCN_H)
-check_include_files(sys/file.h HAVE_SYS_FILE_H)
-check_function_exists(flock HAVE_FLOCK)
-check_function_exists(realpath HAVE_REALPATH)
+    check_function_exists(clock_gettime HAVE_CLOCK_GETTIME)
+    check_function_exists(flock HAVE_FLOCK)
+    check_function_exists(realpath HAVE_REALPATH)
 
+    check_include_files(sys/file.h HAVE_SYS_FILE_H)
+
+    check_type("struct serial_struct" linux/serial.h HAVE_STRUCT_SERIAL_STRUCT)
+    check_type("struct termios2" linux/termios.h HAVE_STRUCT_TERMIOS2)
+
+    check_struct_member("struct termios" c_ispeed linux/termios.h HAVE_STRUCT_TERMIOS_C_ISPEED)
+    check_struct_member("struct termios" c_ospeed linux/termios.h HAVE_STRUCT_TERMIOS_C_OSPEED)
+    check_struct_member("struct termios2" c_ispeed linux/termios.h HAVE_STRUCT_TERMIOS2_C_ISPEED)
+    check_struct_member("struct termios2" c_ospeed linux/termios.h HAVE_STRUCT_TERMIOS2_C_OSPEED)
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
