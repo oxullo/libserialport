@@ -13,6 +13,7 @@ message("Building libserialport for system: ${CMAKE_SYSTEM_NAME}")
 if(CMAKE_SYSTEM_NAME MATCHES "^Windows$")
     add_compile_definitions(LIBSERIALPORT_MSBUILD)
     set(SOURCES serialport.c timing.c windows.c)
+    target_link_libraries(libserialport setupapi)
 elseif(CMAKE_SYSTEM_NAME MATCHES "^Linux$")
     set(SOURCES serialport.c timing.c linux.c linux_termios.c)
     if(COMPILER_HAS_HIDDEN_VISIBILITY)
@@ -61,8 +62,6 @@ if(CMAKE_SYSTEM_NAME MATCHES "^Linux$")
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
-
-target_link_libraries(libserialport setupapi)
 
 target_include_directories(libserialport PUBLIC 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
